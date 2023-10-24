@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "080b2513-9825-49d2-9a07-2446488da349",
+		"name": "collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6992118"
+	},
+	"item": [
+		{
+			"name": "getWithConversion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transactions?page=0&page-size=10&country=Albania&currency=Lek&from-date=2023-06-23",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "page-size",
+							"value": "10"
+						},
+						{
+							"key": "country",
+							"value": "Albania"
+						},
+						{
+							"key": "currency",
+							"value": "Lek"
+						},
+						{
+							"key": "from-date",
+							"value": "2023-06-23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"transaction\",\n    \"transactionDate\": \"2023-10-21\",\n    \"amount\": \"12.12\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transaction",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getWithoutConversion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/transactions?page=0&page-size=10&from-date=2023-06-23",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "page-size",
+							"value": "10"
+						},
+						{
+							"key": "from-date",
+							"value": "2023-06-23"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

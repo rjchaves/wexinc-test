@@ -3,6 +3,7 @@ package com.wextest.app.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.wextest.app.transaction.Transaction;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Setter
 @AllArgsConstructor
 @JsonInclude(NON_NULL)
+@EqualsAndHashCode
 public class TransactionDTO {
     private UUID id;
     private String description;

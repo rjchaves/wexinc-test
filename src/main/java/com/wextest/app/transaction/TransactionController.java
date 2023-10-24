@@ -8,23 +8,25 @@ import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
-@Controller
+@RestController()
 @AllArgsConstructor
+@RequestMapping("/transaction")
 public class TransactionController {
     private TransactionService transactionService;
 
-    @PostMapping(value = "/transaction", consumes=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransaction(@RequestBody @Valid TransactionRequest purchasedTransaction) {
         transactionService.save(purchasedTransaction);
     }
 
-    @GetMapping("/transactions")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public TransactionPageResponse getTransactions(@RequestParam(defaultValue = "0") Integer page,

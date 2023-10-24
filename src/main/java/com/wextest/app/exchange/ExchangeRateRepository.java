@@ -1,6 +1,7 @@
 package com.wextest.app.exchange;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,10 +30,14 @@ public class ExchangeRateRepository {
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final RetryTemplate retryTemplate;
     private final CacheManager cacheManager;
+    private final String fiscalDataEndpoint;
 
-    public ExchangeRateRepository(RestTemplate restTemplate, CacheManager cacheManager) {
+    public ExchangeRateRepository(RestTemplate restTemplate, CacheManager cacheManager, @Value("${url.fiscaldata}") String fiscalDataApi) {
+        String fiscalDataEndpoint = "fiscal_service/v1/accounting/od/rates_of_exchange";
+
         this.restTemplate = restTemplate;
         this.cacheManager = cacheManager;
+        this.fiscalDataEndpoint = fiscalDataApi+fiscalDataEndpoint;
         this.retryTemplate = RetryTemplate.builder()
                 .maxAttempts(3)
                 .fixedBackoff(1000)
@@ -75,8 +80,7 @@ public class ExchangeRateRepository {
                 .append("country:eq:").append(country).append(",")
                 .append("currency:eq:").append(currency).toString();
 
-        //TODO externalize this URL
-        String uriString = UriComponentsBuilder.fromHttpUrl("https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange")
+        String uriString = UriComponentsBuilder.fromHttpUrl(fiscalDataEndpoint)
                 .queryParam("fields", "country_currency_desc,exchange_rate,record_date")
                 .queryParam("filter", filter)
                 .queryParam("sort", "record_date")

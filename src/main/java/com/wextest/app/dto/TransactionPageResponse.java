@@ -6,5 +6,5 @@ import java.util.List;
 
 public record TransactionPageResponse(List<TransactionDTO> transactions,
                                       Integer page,
-                                      @JsonProperty("page-size") Integer pageSize) {
+                                      @JsonProperty("total-pages") Integer totalPages) {
 }
